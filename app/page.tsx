@@ -43,6 +43,23 @@ const supportImages = {
   }
 };
 
+const praisenessOfficialUrl = "https://prizenes.com/";
+
+const therapistProfile = {
+  name: "担当理学療法士",
+  photo: brandAssets.trainers[0].src,
+  photoAlt: "オンライン運動サポートを担当するリハビリジムプライズネスの理学療法士",
+  qualification: "理学療法士",
+  affiliation: "リハビリジムプライズネス",
+  specialties: [
+    "膝・腰・股関節の運動相談",
+    "歩行不安・転倒予防",
+    "病院リハビリ後の運動継続",
+    "高齢者・中高年の運動サポート",
+    "自宅で続けられる自主トレ提案"
+  ]
+};
+
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
@@ -370,17 +387,101 @@ export default function Home() {
 
       <Section
         eyebrow="プライズネス"
-        title="札幌のリハビリジムで培った、理学療法士による運動継続支援"
-        description="プライズネスは、理学療法士が一人ひとりの身体の状態や生活背景を確認し、続けやすい運動を支えるリハビリジムです。海外在住向けオンラインサポートでも、その考え方をもとに、日本語で身体の不安を整理し、無理のないセルフケアを支援します。"
+        title="日本のリハビリジムで培った、身体を見る力をオンラインへ"
         tone="paper"
       >
-        <div className="grid gap-6 lg:grid-cols-3">
-          {brandAssets.facility.map((image) => (
-            <figure key={image.src} className="rounded-md bg-white p-3">
-              <img src={image.src} alt={image.alt} className="aspect-[4/3] w-full rounded-md object-cover" />
-              <figcaption className="mt-3 px-1 text-base font-bold leading-7 text-ink">{image.alt}</figcaption>
-            </figure>
-          ))}
+        <div className="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div className="rounded-md bg-white p-6 shadow-sm sm:p-8">
+            <div className="space-y-5 text-lg leading-8 text-ink/78">
+              <p>
+                プライズネスは、札幌市にある理学療法士によるリハビリジムです。膝・腰・股関節の不安、歩行や転倒への不安、病院でのリハビリ終了後の運動継続など、身体に不安を抱える方の「これからの生活を支える運動」を大切にしています。
+              </p>
+              <p>
+                海外在住向けオンラインサポートでは、店舗の器具を使うのではなく、理学療法士が日本語でお話を伺い、現在の身体の状態、生活環境、運動への不安を整理します。そのうえで、ご自宅で無理なく続けられる運動やセルフケアの方向性を一緒に考えます。
+              </p>
+              <p>
+                現地の医療やリハビリの説明がわかりにくい方、膝や腰に不安があり運動してよいか迷っている方、一時帰国後も運動を続けたい方に、札幌のリハビリジムで培った経験をオンラインでお届けします。
+              </p>
+            </div>
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a
+                href={praisenessOfficialUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-12 items-center justify-center rounded-md bg-sea px-6 py-3 text-base font-bold text-white transition hover:bg-ink sm:text-lg"
+              >
+                リハビリジムプライズネス公式サイトを見る
+              </a>
+              <ScrollLink href="#apply" variant="secondary">
+                日本語で相談する
+              </ScrollLink>
+            </div>
+          </div>
+
+          <aside className="rounded-md border border-sea/15 bg-white p-5 shadow-soft sm:p-6">
+            <div className="flex flex-col gap-5 sm:flex-row lg:flex-col">
+              <img
+                src={therapistProfile.photo}
+                alt={therapistProfile.photoAlt}
+                className="aspect-[4/3] w-full rounded-md object-cover sm:w-48 lg:w-full"
+              />
+              <div>
+                <p className="text-sm font-black text-sea">セラピスト紹介</p>
+                <h3 className="mt-2 text-2xl font-black leading-tight text-ink">{therapistProfile.name}</h3>
+                <dl className="mt-4 grid gap-2 text-base leading-7">
+                  <div>
+                    <dt className="font-bold text-ink">資格</dt>
+                    <dd className="text-ink/75">{therapistProfile.qualification}</dd>
+                  </div>
+                  <div>
+                    <dt className="font-bold text-ink">所属</dt>
+                    <dd className="text-ink/75">{therapistProfile.affiliation}</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+            <p className="mt-5 leading-7 text-ink/75">
+              担当する理学療法士が、身体の状態や生活背景を丁寧に確認し、無理なく続けられる運動を一緒に考えます。オンラインでは、触診や機器測定は行えませんが、問診・動作確認・生活状況の確認を通じて、現在の不安を整理し、自宅でできる運動の方向性を提案します。
+            </p>
+            <div className="mt-5">
+              <p className="text-sm font-black text-ink">専門・対応領域</p>
+              <ul className="mt-3 grid gap-2">
+                {therapistProfile.specialties.map((specialty) => (
+                  <li key={specialty} className="rounded-md bg-mist px-4 py-3 text-sm font-bold leading-6 text-sea">
+                    {specialty}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+
+        <div className="mt-8 rounded-md bg-white p-4 shadow-sm">
+          <div className="grid gap-4 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+            <div>
+              <h3 className="text-xl font-black leading-tight text-ink">実店舗がある安心感を、オンライン相談にも</h3>
+              <p className="mt-3 leading-7 text-ink/75">
+                オンラインでは店舗の器具を使用するわけではありません。実店舗で培った評価・運動指導の考え方をもとに、海外のご自宅で続けやすい方法を一緒に整理します。
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {brandAssets.facility.map((image, index) => (
+                <figure key={image.src} className="overflow-hidden rounded-md bg-paper">
+                  <img
+                    src={image.src}
+                    alt={
+                      index === 0
+                        ? "リハビリジムプライズネスの実店舗トレーニングルーム"
+                        : index === 1
+                          ? "リハビリジムプライズネスの運動サポート環境"
+                          : "リハビリジムプライズネスで身体の状態を確認する様子"
+                    }
+                    className="aspect-[4/3] w-full object-cover"
+                  />
+                </figure>
+              ))}
+            </div>
+          </div>
         </div>
       </Section>
 
