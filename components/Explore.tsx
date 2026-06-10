@@ -74,9 +74,6 @@ export default function Explore() {
       <section id="purpose" className="bg-sora-soft py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mb-10 text-center">
-            <p className="mb-3 inline-block rounded-full bg-white px-4 py-1 text-xs font-bold tracking-widest text-sora-deep">
-              PURPOSE
-            </p>
             <h2 className="font-display text-2xl font-bold sm:text-3xl">
               目的別に探す
             </h2>
@@ -117,9 +114,6 @@ export default function Explore() {
       <section id="area" className="bg-white py-16 lg:py-20">
         <div className="mx-auto max-w-4xl px-4 sm:px-6">
           <div className="mb-10 text-center">
-            <p className="mb-3 inline-block rounded-full bg-wakaba-soft px-4 py-1 text-xs font-bold tracking-widest text-wakaba-deep">
-              AREA
-            </p>
             <h2 className="font-display text-2xl font-bold sm:text-3xl">
               エリア別に探す
             </h2>
@@ -176,9 +170,6 @@ export default function Explore() {
       <section id="facilities" className="bg-wakaba-soft py-16 lg:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
           <div className="mb-9 text-center">
-            <p className="mb-3 inline-block rounded-full bg-white px-4 py-1 text-xs font-bold tracking-widest text-wakaba-deep">
-              SEARCH
-            </p>
             <h2 className="font-display text-2xl font-bold sm:text-3xl">
               札幌市内の掲載施設
             </h2>
