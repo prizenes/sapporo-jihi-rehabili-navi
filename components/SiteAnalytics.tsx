@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/next";
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-HB1Z9BRRJ3";
 const isProduction = process.env.VERCEL_ENV === "production";
-const isVercelAnalyticsEnabled = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED === "true";
+const isVercelAnalyticsEnabled = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED !== "false";
 
 export function SiteAnalytics() {
   return (
