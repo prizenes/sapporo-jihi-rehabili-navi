@@ -211,7 +211,7 @@ export const FACILITIES: Facility[] = [
     name: "リハビリジム プライズネス",
     ward: "西区",
     address: "札幌市西区琴似",
-    categories: ["rehab"],
+    categories: ["gym"],
     qualifications: ["理学療法士"],
     involvement: "理学療法士が運営・在籍",
     tagline:
