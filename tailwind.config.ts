@@ -2,26 +2,32 @@ import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./lib/**/*.{js,ts,jsx,tsx,mdx}"
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        ink: "#14313a",
-        sea: "#0f766e",
-        leaf: "#2f7d4f",
-        mist: "#eef7f4",
-        paper: "#fffdf8",
-        coral: "#d96b4f"
+        ink: { DEFAULT: "#2F3B41", soft: "#647781" },
+        line: "#DCE7EC",
+        paper: "#FCFDFD",
+        sora: { soft: "#E9F3F8", DEFAULT: "#4A8AB0", deep: "#2F6485" },
+        wakaba: { soft: "#EAF4EE", DEFAULT: "#5AA383", deep: "#41785F" },
+        kinari: { soft: "#F8F4EA", DEFAULT: "#EDE4CF", deep: "#A78F5F" },
+      },
+      fontFamily: {
+        display: ["var(--font-display)", "sans-serif"],
+        body: ["var(--font-body)", "sans-serif"],
       },
       boxShadow: {
-        soft: "0 18px 60px rgba(20, 49, 58, 0.12)"
-      }
-    }
+        soft: "0 4px 20px rgba(74, 138, 176, 0.10)",
+        card: "0 2px 12px rgba(74, 138, 176, 0.08)",
+      },
+      borderRadius: {
+        xl2: "1.25rem",
+      },
+    },
   },
-  plugins: []
+  plugins: [],
 };
-
 export default config;
