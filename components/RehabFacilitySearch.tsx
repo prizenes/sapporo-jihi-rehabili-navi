@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { facilities, purposes, qualifications, serviceTypes, statusLabels, wards } from "@/data/facilities";
+import { facilities, purposes, qualifications, serviceTypes, statusLabels, wards, type PurposeId } from "@/data/facilities";
 
 const purposeById = new Map(purposes.map((purpose) => [purpose.id, purpose]));
 const statusStyles = {
@@ -49,7 +49,7 @@ function SelectField({
 
 export function RehabFacilitySearch() {
   const [ward, setWard] = useState("");
-  const [purpose, setPurpose] = useState("");
+  const [purpose, setPurpose] = useState<PurposeId | "">("");
   const [qualification, setQualification] = useState("");
   const [serviceType, setServiceType] = useState("");
 
@@ -81,7 +81,7 @@ export function RehabFacilitySearch() {
           <SelectField
             label="目的"
             value={purpose}
-            onChange={setPurpose}
+            onChange={(value) => setPurpose(value as PurposeId | "")}
             options={purposes.map((item) => ({ value: item.id, label: item.label }))}
             placeholder="すべての目的"
           />
