@@ -200,7 +200,7 @@ export default function Explore() {
                 </span>
                 <select
                   value={area}
-                  onChange={(e: { target: { value: string } }) => setArea(e.target.value)}
+                  onChange={(e) => setArea(e.target.value)}
                   className="w-full cursor-pointer rounded-xl border border-line bg-paper px-3.5 py-3 text-base"
                 >
                   <option value="">すべてのエリア</option>
@@ -218,9 +218,7 @@ export default function Explore() {
                 </span>
                 <select
                   value={purpose}
-                  onChange={(e: { target: { value: string } }) =>
-                    setPurpose(e.target.value as PurposeId | "")
-                  }
+                  onChange={(e) => setPurpose(e.target.value as PurposeId | "")}
                   className="w-full cursor-pointer rounded-xl border border-line bg-paper px-3.5 py-3 text-base"
                 >
                   <option value="">すべての目的</option>
@@ -237,9 +235,7 @@ export default function Explore() {
                 </span>
                 <select
                   value={category}
-                  onChange={(e: { target: { value: string } }) =>
-                    setCategory(e.target.value as CategoryId | "")
-                  }
+                  onChange={(e) => setCategory(e.target.value as CategoryId | "")}
                   className="w-full cursor-pointer rounded-xl border border-line bg-paper px-3.5 py-3 text-base"
                 >
                   <option value="">すべてのカテゴリ</option>
@@ -256,7 +252,7 @@ export default function Explore() {
                 </span>
                 <select
                   value={qual}
-                  onChange={(e: { target: { value: string } }) => setQual(e.target.value)}
+                  onChange={(e) => setQual(e.target.value)}
                   className="w-full cursor-pointer rounded-xl border border-line bg-paper px-3.5 py-3 text-base"
                 >
                   <option value="">すべての資格</option>
