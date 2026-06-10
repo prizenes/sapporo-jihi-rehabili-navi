@@ -1,4 +1,4 @@
-export default function Footer() {
+﻿export default function Footer() {
   return (
     <footer className="bg-sora-deep py-10 text-sora-soft">
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
@@ -24,19 +24,25 @@ export default function Footer() {
           <a href="#facilities" className="hover:underline">
             施設一覧
           </a>
+        </nav>
+        <nav
+          aria-label="サイト情報"
+          className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1.5 text-xs opacity-75"
+        >
+          <a href="/contact" className="hover:underline">
+            お問い合わせ
+          </a>
+          <a href="/contact#fix" className="hover:underline">
+            掲載情報の修正・削除依頼
+          </a>
           <a href="#recruit" className="hover:underline">
             無料掲載について
           </a>
           <a href="#notice" className="hover:underline">
             注意事項
           </a>
-          <a href="#operator" className="hover:underline">
-            運営者情報
-          </a>
         </nav>
-        <p className="mt-6 text-xs opacity-60">
-          © 2026 札幌 自費リハビリナビ（運営：リハビリジム プライズネス）
-        </p>
+        <p className="mt-6 text-xs opacity-60">© 2026 札幌 自費リハビリナビ</p>
       </div>
     </footer>
   );

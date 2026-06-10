@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Zen_Maru_Gothic, Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 

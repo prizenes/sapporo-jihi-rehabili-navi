@@ -1,19 +1,19 @@
-/* =====================================================================
+﻿/* =====================================================================
  * 札幌 自費リハビリナビ 施設データ
  *
  * 施設の追加・編集はこのファイルだけで完結します。
  *
- * isPublic : true  = 公開画面に表示する
- *            false = データとして保持するが公開画面には出さない
- * status   : "official"  = 正式掲載（フルカードで表示）
- *            "candidate" = 掲載候補（コンパクトな確認中リストで表示）
- *            "checking"  = 情報確認中（公開画面では件数のみ表示）
+ * isPublic      : true = 公開画面に表示 / false = 非表示（データは保持）
+ * displayStatus : 公開画面に出す文言（全施設とも中立的な表現にする）
+ * adminStatus   : 管理用ステータス（正式掲載・掲載候補・情報確認中）
+ *                 ※ 公開画面には絶対に表示しない
  *
  * ※ 公開情報ベースの一次データです。正式掲載へ切り替える前に、
  *    各施設へ掲載許可・資格者在籍・料金・住所を必ず確認してください。
  * ===================================================================== */
 
-export type FacilityStatus = "official" | "candidate" | "checking";
+/** 管理用ステータス（公開画面には表示しない） */
+export type AdminStatus = "正式掲載" | "掲載候補" | "情報確認中";
 
 export type CategoryId =
   | "rehab"
@@ -65,8 +65,11 @@ export interface Facility {
   priceNote: string; // 料金目安
   site: string; // 公式サイトURL（"" なら非表示）
   contact: string; // 問い合わせURL（"" なら非表示）
-  status: FacilityStatus;
+  /** 公開画面に出す文言（例：掲載中／公開情報をもとに掲載） */
+  displayStatus: string;
   isPublic: boolean;
+  /* ---- 管理用ステータス（公開画面には表示しない） ---- */
+  adminStatus: AdminStatus;
   /* ---- 以下は運営用メモ（公開画面には表示されません） ---- */
   adminMemo?: string;
   checkedAt?: string;
@@ -219,8 +222,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "公式サイトの料金表をご確認ください",
     site: "https://priseness-health-support.vercel.app/",
     contact: "https://priseness-health-support.vercel.app/",
-    status: "official",
+    displayStatus: "掲載中",
     isPublic: true,
+    adminStatus: "正式掲載",
     adminMemo: "運営元として正式掲載。住所・料金・予約URLは最新情報に差し替え。",
     checkedAt: "2026-06-10",
     priority: "A",
@@ -241,8 +245,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "公式サイトでご確認ください",
     site: "https://we-ing.biz/about/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "ユーザー指定。正式掲載前に掲載許可と料金詳細確認。",
     checkedAt: "2026-06-10",
     priority: "A",
@@ -263,8 +268,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "60分 8,800円／80分 12,000円 など",
     site: "https://www.in-phact.com/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "医療機関ではない旨の注意表現あり。サイト文言の参考にもなる。",
     checkedAt: "2026-06-10",
     priority: "A",
@@ -285,8 +291,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "公式・予約ページでご確認ください",
     site: "https://coability.net/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "表現に『改善』が多いので掲載文は中立にリライト。",
     checkedAt: "2026-06-10",
     priority: "A",
@@ -307,8 +314,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "公式サイトでご確認ください",
     site: "https://boost-care.com/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "正式掲載前に住所・料金を確認。",
     checkedAt: "2026-06-10",
     priority: "A",
@@ -317,7 +325,7 @@ export const FACILITIES: Facility[] = [
     id: "physioroom",
     name: "PHYSIOROOM（フィジオルーム）",
     ward: "南区",
-    address: "札幌市南区（詳細は確認中です）",
+    address: "札幌市南区（詳細は公式情報をご確認ください）",
     categories: ["pt-seitai", "pilates", "gym"],
     qualifications: ["理学療法士"],
     involvement: "女性理学療法士・トレーナー",
@@ -329,8 +337,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "Instagram・掲載媒体でご確認ください",
     site: "https://www.instagram.com/physioroom_sapporo/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "確認元が主にSNS/外部媒体。掲載許可を優先。",
     checkedAt: "2026-06-10",
     priority: "C",
@@ -341,7 +350,7 @@ export const FACILITIES: Facility[] = [
     ward: "西区",
     address: "札幌市西区西野九条8-14-5",
     categories: ["rehab"],
-    qualifications: ["専門職体制は確認中"],
+    qualifications: [],
     involvement: "HAL／Neuro HAL FIT 施設",
     tagline:
       "装着型サイボーグHAL®を活用したトレーニング施設。脳卒中・脊髄損傷・神経筋難病の方の歩行や上肢の運動を支援します。",
@@ -351,8 +360,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "トライアル 16,500円／60分 16,500円 など",
     site: "https://robocare.jp/neuro-halfit-price/sapporo/",
     contact: "",
-    status: "candidate",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: true,
+    adminStatus: "掲載候補",
     adminMemo: "先進機器系として自費リハビリ枠に掲載。資格者在籍は確認要。資格表示よりサービス特性中心。",
     checkedAt: "2026-06-10",
     priority: "B",
@@ -373,8 +383,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "ビジターPT 60分 11,000円 など",
     site: "https://spocli-labo.jp/",
     contact: "",
-    status: "checking",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: false,
+    adminStatus: "情報確認中",
     adminMemo: "医療×フィットネス色が強い。資格者表記・スタッフを確認してから正式候補化。スタッフ紹介ページ確認推奨。",
     checkedAt: "2026-06-10",
     priority: "B",
@@ -394,8 +405,9 @@ export const FACILITIES: Facility[] = [
     priceNote: "確認中",
     site: "",
     contact: "",
-    status: "checking",
+    displayStatus: "公開情報をもとに掲載",
     isPublic: false,
+    adminStatus: "情報確認中",
     adminMemo: "比較記事に掲載あり。公式確認後に追加。公式確認が必要。",
     checkedAt: "2026-06-10",
     priority: "C",
@@ -408,17 +420,23 @@ export const FACILITIES: Facility[] = [
 export const publicFacilities = (): Facility[] =>
   FACILITIES.filter((f) => f.isPublic);
 
-/** 正式掲載の施設 */
-export const officialFacilities = (): Facility[] =>
-  publicFacilities().filter((f) => f.status === "official");
-
-/** 掲載候補（確認中リストに表示） */
-export const candidateFacilities = (): Facility[] =>
-  publicFacilities().filter((f) => f.status === "candidate");
-
-/** 情報確認中の件数（名前は公開画面に出さない） */
-export const checkingCount = (): number =>
-  FACILITIES.filter((f) => f.status === "checking").length;
+/**
+ * 公開画面での表示順：エリア順（区の並び順）→ 施設名順。
+ * ランキングに見えない並びにするため、優先度などでは並べ替えない。
+ */
+export const sortedPublicFacilities = (): Facility[] => {
+  const wardIndex = (w: string): number => {
+    const i = WARDS.findIndex((ward) => w.includes(ward));
+    return i === -1 ? WARDS.length : i; // 札幌市内・近郊は最後
+  };
+  return publicFacilities()
+    .slice()
+    .sort(
+      (a, b) =>
+        wardIndex(a.ward) - wardIndex(b.ward) ||
+        a.name.localeCompare(b.name, "ja")
+    );
+};
 
 export const categoryLabel = (id: CategoryId): string =>
   CATEGORIES.find((c) => c.id === id)?.label ?? id;

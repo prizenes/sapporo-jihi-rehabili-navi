@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import {
@@ -6,11 +6,8 @@ import {
   EXTRA_AREA,
   PURPOSES,
   WARDS,
-  candidateFacilities,
   categoryLabel,
-  checkingCount,
-  officialFacilities,
-  publicFacilities,
+  sortedPublicFacilities,
   type CategoryId,
   type Facility,
   type PurposeId,
@@ -39,29 +36,21 @@ export default function Explore() {
   const [category, setCategory] = useState<CategoryId | "">("");
   const [qual, setQual] = useState("");
 
-  const allPublic = useMemo(() => publicFacilities(), []);
-  const officials = useMemo(() => officialFacilities(), []);
-  const candidates = useMemo(() => candidateFacilities(), []);
+  const facilities = useMemo(() => sortedPublicFacilities(), []);
 
   const qualOptions = useMemo(() => {
     const set = new Set<string>();
-    allPublic.forEach((f) =>
-      f.qualifications.forEach((q) => {
-        if (!q.includes("確認中")) set.add(q);
-      })
-    );
+    facilities.forEach((f) => f.qualifications.forEach((q) => set.add(q)));
     return Array.from(set);
-  }, [allPublic]);
+  }, [facilities]);
 
-  const filterFn = (f: Facility) =>
-    (!area || matchWard(f, area)) &&
-    (!purpose || f.purposes.includes(purpose)) &&
-    (!category || f.categories.includes(category)) &&
-    (!qual || f.qualifications.includes(qual));
-
-  const filteredOfficials = officials.filter(filterFn);
-  const filteredCandidates = candidates.filter(filterFn);
-  const total = filteredOfficials.length + filteredCandidates.length;
+  const filtered = facilities.filter(
+    (f) =>
+      (!area || matchWard(f, area)) &&
+      (!purpose || f.purposes.includes(purpose)) &&
+      (!category || f.categories.includes(category)) &&
+      (!qual || f.qualifications.includes(qual))
+  );
 
   const reset = () => {
     setArea("");
@@ -77,7 +66,7 @@ export default function Explore() {
   };
 
   const wardCount = (w: string) =>
-    allPublic.filter((f) => matchWard(f, w)).length;
+    facilities.filter((f) => matchWard(f, w)).length;
 
   return (
     <>
@@ -191,8 +180,11 @@ export default function Explore() {
               SEARCH
             </p>
             <h2 className="font-display text-2xl font-bold sm:text-3xl">
-              施設一覧
+              札幌市内の掲載施設
             </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-ink-soft">
+              掲載情報は、各施設の公式サイトなど公開情報、または施設から提供された情報をもとに作成しています。最新のサービス内容・料金・対応可否は、各施設の公式サイトまたは窓口でご確認ください。
+            </p>
           </div>
 
           {/* フィルター */}
@@ -286,21 +278,17 @@ export default function Explore() {
           </div>
 
           <p aria-live="polite" className="mb-5 text-sm text-ink-soft">
-            <strong className="text-lg text-sora-deep">{total}</strong>{" "}
-            件が見つかりました（正式掲載 {filteredOfficials.length} 件・掲載候補{" "}
-            {filteredCandidates.length} 件）
+            <strong className="text-lg text-sora-deep">{filtered.length}</strong>{" "}
+            件の施設が見つかりました
           </p>
 
-          {/* 正式掲載カード */}
-          {filteredOfficials.length > 0 && (
-            <div className="mb-10 grid grid-cols-1 gap-5 lg:grid-cols-2">
-              {filteredOfficials.map((f) => (
-                <OfficialCard key={f.id} facility={f} />
+          {filtered.length > 0 ? (
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
+              {filtered.map((f) => (
+                <FacilityCard key={f.id} facility={f} />
               ))}
             </div>
-          )}
-
-          {total === 0 && (
+          ) : (
             <div className="rounded-2xl bg-white p-10 text-center text-ink-soft">
               条件に合う施設が見つかりませんでした。
               <br />
@@ -308,62 +296,34 @@ export default function Explore() {
             </div>
           )}
 
-          {/* 掲載候補（コンパクト表示） */}
-          {filteredCandidates.length > 0 && (
-            <div className="rounded-2xl border border-dashed border-line bg-white/70 p-5 sm:p-7">
-              <h3 className="flex items-center gap-2 font-display text-base font-bold text-ink-soft">
-                <span aria-hidden="true">🕓</span>
-                掲載候補の施設（情報確認中）
-              </h3>
-              <p className="mb-4 mt-1 text-xs leading-relaxed text-ink-soft">
-                以下は掲載候補の施設です。資格者の在籍状況・料金・サービス内容などを確認中のため、正式掲載ではありません。最新情報は各施設へ直接ご確認ください。
-              </p>
-              <ul className="divide-y divide-line">
-                {filteredCandidates.map((f) => (
-                  <li
-                    key={f.id}
-                    className="flex flex-wrap items-center gap-x-3 gap-y-1.5 py-3"
-                  >
-                    <span className="rounded-full bg-kinari-soft px-2.5 py-0.5 text-[11px] font-bold text-kinari-deep">
-                      確認中
-                    </span>
-                    <span className="font-medium text-ink-soft">{f.name}</span>
-                    <span className="text-xs text-ink-soft">{f.ward}</span>
-                    <span className="text-xs text-ink-soft">
-                      {categoryLabel(f.categories[0])}
-                    </span>
-                    {f.site && (
-                      <a
-                        href={f.site}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="ml-auto text-xs font-medium text-sora underline-offset-2 hover:underline"
-                      >
-                        公式情報 ↗
-                      </a>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          <p className="mt-6 text-center text-sm text-ink-soft">
+            掲載施設は順次追加予定です。
+          </p>
 
-          {/* 情報確認中の件数のみ案内 */}
-          {checkingCount() > 0 && (
-            <p className="mt-5 text-center text-sm text-ink-soft">
-              ほかに、現在掲載準備中（情報確認中）の施設が {checkingCount()}{" "}
-              件あります。確認が取れ次第、順次ご紹介します。
+          {/* 掲載情報の修正・削除依頼 */}
+          <div className="mx-auto mt-10 max-w-2xl rounded-2xl border border-line bg-white/80 p-6 text-center">
+            <p className="font-display text-sm font-bold">
+              掲載情報の修正・削除をご希望の施設様へ
             </p>
-          )}
+            <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+              掲載内容の修正、削除、無料掲載のご希望がある場合は、お問い合わせフォームよりご連絡ください。
+            </p>
+            <a
+              href="/contact"
+              className="mt-4 inline-block rounded-full border border-line bg-paper px-6 py-2.5 text-sm font-bold text-ink-soft transition hover:border-sora hover:text-sora-deep"
+            >
+              掲載情報の修正・削除を依頼する
+            </a>
+          </div>
         </div>
       </section>
     </>
   );
 }
 
-/* ---------------- 正式掲載カード ---------------- */
+/* ---------------- 施設カード（全施設共通・同一トーン） ---------------- */
 
-function OfficialCard({ facility: f }: { facility: Facility }) {
+function FacilityCard({ facility: f }: { facility: Facility }) {
   const tags = [
     ...f.qualifications.map((q) => ({ text: q, kind: "qual" as const })),
     ...f.serviceTypes.map((t) => ({ text: t, kind: "type" as const })),
@@ -374,14 +334,14 @@ function OfficialCard({ facility: f }: { facility: Facility }) {
       {/* 上部 */}
       <div className="bg-gradient-to-r from-sora-soft to-wakaba-soft px-6 pb-4 pt-5">
         <div className="mb-2 flex flex-wrap items-center gap-2">
-          <span className="rounded-full bg-wakaba px-3 py-0.5 text-xs font-bold text-white">
-            ✓ 正式掲載
-          </span>
           <span className="rounded-full bg-white px-3 py-0.5 text-xs font-bold text-sora-deep">
             {f.ward}
           </span>
           <span className="text-xs font-medium text-ink-soft">
             {f.categories.map(categoryLabel).join("・")}
+          </span>
+          <span className="ml-auto rounded-full bg-white/70 px-3 py-0.5 text-[11px] font-medium text-ink-soft">
+            {f.displayStatus}
           </span>
         </div>
         <h3 className="font-display text-xl font-bold leading-snug">
@@ -392,21 +352,23 @@ function OfficialCard({ facility: f }: { facility: Facility }) {
       {/* 中央 */}
       <div className="flex flex-1 flex-col gap-3.5 px-6 py-5">
         <p className="text-[15px] leading-relaxed">{f.tagline}</p>
-        <div className="flex flex-wrap gap-1.5">
-          {tags.map((t) => (
-            <span
-              key={t.text}
-              className={
-                t.kind === "qual"
-                  ? "rounded-full border border-wakaba/40 bg-wakaba-soft px-3 py-1 text-xs font-bold text-wakaba-deep"
-                  : "rounded-full bg-sora-soft px-3 py-1 text-xs font-medium text-sora-deep"
-              }
-            >
-              {t.kind === "qual" ? "🪪 " : ""}
-              {t.text}
-            </span>
-          ))}
-        </div>
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {tags.map((t) => (
+              <span
+                key={t.text}
+                className={
+                  t.kind === "qual"
+                    ? "rounded-full border border-wakaba/40 bg-wakaba-soft px-3 py-1 text-xs font-bold text-wakaba-deep"
+                    : "rounded-full bg-sora-soft px-3 py-1 text-xs font-medium text-sora-deep"
+                }
+              >
+                {t.kind === "qual" ? "🪪 " : ""}
+                {t.text}
+              </span>
+            ))}
+          </div>
+        )}
         <p className="text-sm text-ink-soft">
           対象：{f.targets.slice(0, 4).join("、")} など
         </p>
@@ -427,7 +389,7 @@ function OfficialCard({ facility: f }: { facility: Facility }) {
               rel="noopener noreferrer"
               className="flex-1 rounded-xl border-2 border-sora py-2.5 text-center font-display text-sm font-bold text-sora transition hover:bg-sora-soft"
             >
-              公式サイト
+              詳細は公式サイトへ
             </a>
           )}
           {f.contact && (

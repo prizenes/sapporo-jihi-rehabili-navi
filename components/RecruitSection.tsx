@@ -1,4 +1,4 @@
-const targets = [
+﻿const targets = [
   { icon: "🤲", label: "理学療法士が関わる整体・コンディショニング" },
   { icon: "🍳", label: "作業療法士による生活動作支援" },
   { icon: "🧘", label: "理学療法士監修のピラティス・ジム" },
@@ -22,7 +22,7 @@ export default function RecruitSection() {
               無料掲載を受付中です
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-ink">
-              理学療法士・作業療法士・言語聴覚士など、身体の専門職が関わる自費リハビリ・整体・ピラティス・ジム・運動支援施設の情報を無料で掲載できます。
+              札幌 自費リハビリナビでは、理学療法士・作業療法士・言語聴覚士など身体の専門職が関わる自費リハビリ、整体、ピラティス、ジム、運動支援施設の情報掲載を受け付けています。掲載は無料です。
             </p>
           </div>
 
@@ -53,7 +53,7 @@ export default function RecruitSection() {
               無料掲載を申し込む
             </a>
             <p className="mt-3 text-sm text-ink-soft">
-              内容を確認のうえ、順次掲載いたします。掲載・解除はいつでもご相談いただけます。
+              内容を確認のうえ、順次掲載いたします。掲載内容の修正・削除もいつでもご相談いただけます。
             </p>
           </div>
         </div>
