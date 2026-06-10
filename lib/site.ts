@@ -1,4 +1,4 @@
-export const siteUrl = "https://overseas-online-support.vercel.app";
+export const siteUrl = "https://sapporo-jihi-rehabili-navi.vercel.app";
 
 export const organizationJsonLd = {
   "@context": "https://schema.org",
@@ -16,8 +16,8 @@ export const organizationJsonLd = {
     addressLocality: "札幌市西区",
     streetAddress: "琴似2条3-1-1 チェストオオイビル3階"
   },
-  areaServed: ["Japan", "United States", "Canada", "Australia", "United Kingdom", "Europe", "Asia"],
-  availableLanguage: ["ja", "en"]
+  areaServed: ["札幌市", "北海道"],
+  availableLanguage: ["ja"]
 };
 
 export function jsonLdScript(data: unknown) {

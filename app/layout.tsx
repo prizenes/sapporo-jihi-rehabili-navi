@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
 import { SiteAnalytics } from "@/components/SiteAnalytics";
+import { pageDescription, siteName } from "@/lib/rehab-directory";
 import "./globals.css";
 
 const googleSiteVerification = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://overseas-online-support.vercel.app"),
+  metadataBase: new URL("https://sapporo-jihi-rehabili-navi.vercel.app"),
   title: {
-    default: "海外在住日本人のオンライン運動サポート｜リハビリジムプライズネス",
-    template: "%s｜リハビリジムプライズネス"
+    default: siteName,
+    template: `%s｜${siteName}`
   },
-  description:
-    "海外在住の日本人向けに、理学療法士が日本語でオンライン身体相談・運動サポートを行います。腰痛、膝痛、股関節痛、歩行不安、転倒不安、運動不足、病院リハビリ後の運動継続をサポート。",
+  description: pageDescription,
   robots: {
     index: true,
     follow: true
