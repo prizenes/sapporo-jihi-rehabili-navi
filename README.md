@@ -85,6 +85,24 @@ Googleフォーム項目案:
 6. Build Commandは `next build`、Output Directoryは `.next` のままで問題ありません。
 7. 独自ドメインを使う場合は、`lib/site.ts` と `app/layout.tsx` のURLを本番ドメインに変更します。
 
+## Google Analytics設定
+
+GA4の測定タグは全ページ共通の `components/SiteAnalytics.tsx` で読み込みます。
+
+VercelのProject Settingsから、Production環境に次の環境変数を追加してください。
+
+```txt
+NEXT_PUBLIC_GA_ID=G-HB1Z9BRRJ3
+```
+
+現在の測定対象:
+
+- サイト名: 札幌自費リハビリナビ
+- ストリームURL: `https://sapporo-jihi-rehabili-navi.vercel.app/`
+- 測定ID: `G-HB1Z9BRRJ3`
+
+計測は本番環境のみで有効になります。ローカル開発環境やVercel PreviewではGA4タグを出さない設定です。
+
 ## ローカル確認
 
 ```bash

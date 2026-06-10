@@ -1,28 +1,27 @@
-"use client";
-
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/next";
 
-const gaMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-HB1Z9BRRJ3";
+const isProduction = process.env.VERCEL_ENV === "production";
 const isVercelAnalyticsEnabled = process.env.NEXT_PUBLIC_VERCEL_ANALYTICS_ENABLED === "true";
 
 export function SiteAnalytics() {
   return (
     <>
-      {gaMeasurementId ? (
+      {isProduction && gaId ? (
         <>
-          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaMeasurementId}`} strategy="afterInteractive" />
+          <Script src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`} strategy="afterInteractive" />
           <Script id="ga4-init" strategy="afterInteractive">
             {`
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', '${gaMeasurementId}');
+              gtag('config', '${gaId}');
             `}
           </Script>
         </>
       ) : null}
-      {isVercelAnalyticsEnabled ? <Analytics /> : null}
+      {isProduction && isVercelAnalyticsEnabled ? <Analytics /> : null}
     </>
   );
 }
