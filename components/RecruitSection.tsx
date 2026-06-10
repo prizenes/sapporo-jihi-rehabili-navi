@@ -1,4 +1,4 @@
-﻿const targets = [
+const targets = [
   { icon: "🤲", label: "理学療法士が関わる整体・コンディショニング" },
   { icon: "🍳", label: "作業療法士による生活動作支援" },
   { icon: "🧘", label: "理学療法士監修のピラティス・ジム" },

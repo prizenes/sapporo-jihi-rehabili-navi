@@ -1,4 +1,4 @@
-﻿export default function Footer() {
+export default function Footer() {
   return (
     <footer className="bg-sora-deep py-10 text-sora-soft">
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">

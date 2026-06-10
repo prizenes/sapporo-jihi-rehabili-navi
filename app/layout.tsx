@@ -1,6 +1,6 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Zen_Maru_Gothic, Noto_Sans_JP } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const display = Zen_Maru_Gothic({

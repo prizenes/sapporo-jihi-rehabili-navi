@@ -1,4 +1,4 @@
-﻿import { CATEGORIES } from "@/data/facilities";
+import { CATEGORIES } from "@/data/facilities";
 
 export default function CategorySection() {
   return (

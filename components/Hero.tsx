@@ -1,4 +1,4 @@
-﻿const heroChips = [
+const heroChips = [
   { icon: "📍", label: "札幌市内" },
   { icon: "🪪", label: "国家資格者が関わる施設" },
   { icon: "🗺", label: "エリア別でさがせる" },

@@ -1,4 +1,4 @@
-﻿export default function NoticeSection() {
+export default function NoticeSection() {
   return (
     <section id="notice" className="bg-paper py-14">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
