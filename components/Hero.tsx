@@ -29,14 +29,15 @@ export default function Hero() {
           <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-wakaba bg-white px-4 py-1.5 text-sm font-bold text-wakaba-deep">
             🍀 札幌の地域案内サイト
           </p>
-          <h1 className="font-display text-[1.85rem] font-bold leading-snug sm:text-4xl lg:text-[2.6rem] lg:leading-[1.4]">
-            札幌で、
-            <span className="bg-gradient-to-t from-wakaba-soft from-40% to-transparent to-40%">
-              理学療法士・作業療法士
+          <h1 className="font-display text-[1.5rem] font-bold leading-[1.45] sm:text-4xl lg:text-[2.6rem] lg:leading-[1.4]">
+            <span className="block">札幌で、</span>
+            <span className="block whitespace-nowrap">
+              <span className="bg-gradient-to-t from-wakaba-soft from-40% to-transparent to-40%">
+                理学療法士・作業療法士
+              </span>
+              が
             </span>
-            が関わる
-            <br className="hidden sm:block" />
-            施設を探す
+            <span className="block">関わる施設を探す</span>
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-base text-ink sm:text-lg lg:mx-0">
             理学療法士・作業療法士など国家資格者が関わる、自費リハビリ・整体・ピラティス・ジム・運動支援施設を目的やエリアから探せます。
