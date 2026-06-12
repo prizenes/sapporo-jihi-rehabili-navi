@@ -10,6 +10,7 @@
  *
  * 作成されるもの:
  * - 無料掲載申込フォーム
+ * - 一般お問い合わせフォーム
  * - 掲載情報の修正・削除依頼フォーム
  * - 各フォームの回答保存用Googleスプレッドシート
  */
@@ -35,10 +36,17 @@ const CONFIRMATION_MESSAGE =
 
 function createSapporoRehabNaviForms() {
   const listingForm = createListingApplicationForm();
+  const inquiryForm = createGeneralInquiryForm();
   const updateForm = createUpdateOrRemovalRequestForm();
 
   logFormUrls("無料掲載申込フォーム", listingForm);
+  logFormUrls("一般お問い合わせフォーム", inquiryForm);
   logFormUrls("掲載情報の修正・削除依頼フォーム", updateForm);
+}
+
+function createGeneralInquiryFormOnly() {
+  const inquiryForm = createGeneralInquiryForm();
+  logFormUrls("一般お問い合わせフォーム", inquiryForm);
 }
 
 function createListingApplicationForm() {
@@ -164,6 +172,52 @@ function createListingApplicationForm() {
   attachResponseSpreadsheet(
     form,
     "札幌 自費リハビリナビ｜無料掲載申込フォーム 回答"
+  );
+
+  return form;
+}
+
+function createGeneralInquiryForm() {
+  const form = FormApp.create("札幌 自費リハビリナビ｜お問い合わせフォーム");
+
+  form
+    .setDescription(
+      "札幌 自費リハビリナビへのお問い合わせフォームです。\n" +
+        "掲載内容に関するご質問、サイトへのご意見、掲載前のご相談などはこちらからご連絡ください。\n" +
+        "各施設のサービス内容・料金・予約については、各施設へ直接お問い合わせください。"
+    )
+    .setConfirmationMessage(CONFIRMATION_MESSAGE)
+    .setCollectEmail(false)
+    .setAllowResponseEdits(false)
+    .setLimitOneResponsePerUser(false)
+    .setProgressBar(true);
+
+  addTextItem(form, "お名前", true);
+  addEmailItem(form, "連絡先メールアドレス", true);
+  addMultipleChoiceItem(
+    form,
+    "お問い合わせ種別",
+    [
+      "サイトについて質問したい",
+      "掲載内容について質問したい",
+      "掲載前に相談したい",
+      "掲載施設について連絡したい",
+      "サイトへの意見・要望",
+      "その他",
+    ],
+    true
+  );
+  addTextItem(form, "関連する施設名", false);
+  addUrlItem(form, "関連するURL", false);
+  addParagraphItem(form, "お問い合わせ内容", true);
+  addRequiredConfirmationCheckboxItem(form, "確認事項", [
+    "各施設のサービス内容・料金・予約については、各施設へ直接確認する必要があることを理解しました。",
+    "内容確認のため、必要に応じて連絡を受けることに同意します。",
+  ]);
+
+  attachResponseSpreadsheet(
+    form,
+    "札幌 自費リハビリナビ｜お問い合わせフォーム 回答"
   );
 
   return form;
