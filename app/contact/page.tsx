@@ -36,7 +36,7 @@ export default function ContactPage() {
               ・メール:        href="mailto:info@example.com"
             */}
             <a
-              href="mailto:?subject=お問い合わせ（札幌 自費リハビリナビ）"
+              href="mailto:mail@prizenes.com?subject=お問い合わせ（札幌 自費リハビリナビ）"
               className="mt-5 inline-block rounded-full bg-sora px-7 py-3 font-display text-sm font-bold text-white transition hover:bg-sora-deep"
             >
               お問い合わせフォームへ
@@ -56,7 +56,7 @@ export default function ContactPage() {
               掲載内容の修正、削除、無料掲載のご希望がある場合は、お問い合わせフォームよりご連絡ください。内容を確認のうえ、すみやかに対応いたします。掲載内容に変更がある場合もお知らせください。
             </p>
             <a
-              href="mailto:?subject=掲載情報の修正・削除依頼（札幌 自費リハビリナビ）"
+              href="mailto:mail@prizenes.com?subject=掲載情報の修正・削除依頼（札幌 自費リハビリナビ）"
               className="mt-5 inline-block rounded-full border-2 border-sora px-7 py-3 font-display text-sm font-bold text-sora transition hover:bg-sora-soft"
             >
               掲載情報の修正・削除を依頼する
