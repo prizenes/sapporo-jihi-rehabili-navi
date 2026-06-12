@@ -47,7 +47,7 @@ export default function RecruitSection() {
               ・メール:        href="mailto:info@example.com?subject=無料掲載の申し込み"
             */}
             <a
-              href="mailto:mail@prizenes.com?subject=無料掲載の申し込み（札幌 自費リハビリナビ）"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfIAWPbtHTRThPm2jBwK_4tMikH6F3DZC04GfOPF60UyBdc1w/viewform?usp=sharing&ouid=115747545040909322048"
               className="inline-block rounded-full bg-wakaba px-10 py-4 font-display text-lg font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-wakaba-deep"
             >
               無料掲載を申し込む
