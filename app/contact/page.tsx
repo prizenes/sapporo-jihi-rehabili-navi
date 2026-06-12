@@ -36,7 +36,7 @@ export default function ContactPage() {
               ・メール:        href="mailto:info@example.com"
             */}
             <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSea313vMagsEOigcMRXrLZ6Gl1yP-SmC3wP9bLxDl044DGQlQ/viewform?usp=sharing&ouid=115747545040909322048"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSf8JcXETDke0A5TvUpif6Z6YkxY--TG6byphiYS2s50D9RTvw/viewform?usp=sharing&ouid=115747545040909322048"
               className="mt-5 inline-block rounded-full bg-sora px-7 py-3 font-display text-sm font-bold text-white transition hover:bg-sora-deep"
             >
               お問い合わせフォームへ
