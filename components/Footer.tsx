@@ -12,16 +12,16 @@ export default function Footer() {
           aria-label="フッターメニュー"
           className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm"
         >
-          <a href="#categories" className="hover:underline">
+          <a href="/#categories" className="hover:underline">
             探せる施設
           </a>
-          <a href="#purpose" className="hover:underline">
+          <a href="/#purpose" className="hover:underline">
             目的別に探す
           </a>
-          <a href="#area" className="hover:underline">
+          <a href="/#area" className="hover:underline">
             エリア別に探す
           </a>
-          <a href="#facilities" className="hover:underline">
+          <a href="/#facilities" className="hover:underline">
             施設一覧
           </a>
         </nav>
@@ -35,12 +35,18 @@ export default function Footer() {
           <a href="/contact#fix" className="hover:underline">
             掲載情報の修正・削除依頼
           </a>
-          <a href="#recruit" className="hover:underline">
+          <a href="/#recruit" className="hover:underline">
             無料掲載について
           </a>
-          <a href="#notice" className="hover:underline">
+          <a href="/#notice" className="hover:underline">
             注意事項
           </a>
+        </nav>
+        <nav aria-label="読みものと運営情報" className="mt-5 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm">
+          <a href="/blog" className="hover:underline">読みもの</a>
+          <a href="/news" className="hover:underline">新着情報</a>
+          <a href="/faq" className="hover:underline">よくある質問</a>
+          <a href="/about" className="hover:underline">運営者・編集方針</a>
         </nav>
         <p className="mt-6 text-xs opacity-60">© 2026 札幌 自費リハビリナビ</p>
       </div>

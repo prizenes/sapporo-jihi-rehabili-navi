@@ -41,18 +41,22 @@ export const metadata: Metadata = {
     "札幌 脳卒中 自費リハビリ",
   ],
   openGraph: {
+    siteName: "札幌 自費リハビリナビ",
+    images: [{ url: "/images/training.jpg", width: 1200, alt: "運動支援のイメージ" }],
     title: "札幌 自費リハビリナビ｜身体の専門職に相談できる場所を探す",
     description:
       "理学療法士・作業療法士など国家資格者が関わる、札幌市内の自費リハビリ・整体・ピラティス・ジム・運動支援施設を目的やエリアから探せます。",
     type: "website",
     locale: "ja_JP",
   },
+  twitter: { card: "summary_large_image", images: ["/images/training.jpg"] },
 };
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "札幌 自費リハビリナビ",
+  url: "https://sapporo-jihi-rehabili-navi.vercel.app/",
   description:
     "札幌市内で身体の専門職が関わる自費リハビリ・整体・ピラティス・ジム・運動支援施設を探せる情報サイト",
   inLanguage: "ja",

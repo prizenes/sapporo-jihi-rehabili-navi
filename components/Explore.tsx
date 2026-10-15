@@ -332,7 +332,7 @@ function FacilityCard({ facility: f }: { facility: Facility }) {
           </span>
         </div>
         <h3 className="font-display text-xl font-bold leading-snug">
-          {f.name}
+          <a href={`/facilities/${f.id}`} className="hover:text-sora-deep hover:underline">{f.name}</a>
         </h3>
       </div>
 
@@ -364,6 +364,7 @@ function FacilityCard({ facility: f }: { facility: Facility }) {
 
       {/* 下部 */}
       <div className="border-t border-line px-6 py-4">
+        <a href={`/facilities/${f.id}`} className="mb-3 inline-block text-sm font-bold text-sora-deep underline underline-offset-4">施設情報・確認日を見る →</a>
         <p className="mb-3 text-sm">
           💰 料金目安：
           <span className="font-bold text-sora-deep">{f.priceNote}</span>

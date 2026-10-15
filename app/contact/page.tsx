@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "お問い合わせ｜札幌 自費リハビリナビ",
-  description:
-    "札幌 自費リハビリナビへのお問い合わせ、掲載情報の修正・削除依頼、無料掲載のお申し込みはこちらから。",
-};
+export const metadata: Metadata = pageMetadata(
+  "お問い合わせ",
+  "札幌 自費リハビリナビへのお問い合わせ、掲載情報の修正・削除依頼、無料掲載のお申し込みはこちらから。",
+  "/contact"
+);
 
 export default function ContactPage() {
   return (

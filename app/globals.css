@@ -5,6 +5,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 8rem;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
@@ -16,5 +17,8 @@
   }
   :focus-visible {
     @apply rounded outline outline-[3px] outline-offset-2 outline-sora;
+  }
+  h1, h2, h3, p, li, dd {
+    overflow-wrap: anywhere;
   }
 }
