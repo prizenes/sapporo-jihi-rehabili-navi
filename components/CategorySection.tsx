@@ -1,36 +1,33 @@
-import { CATEGORIES } from "@/data/facilities";
+import { CATEGORIES, type CategoryId } from "@/data/facilities";
 
-export default function CategorySection() {
+export default function CategorySection({
+  onSelect,
+}: {
+  onSelect: (id: CategoryId) => void;
+}) {
   return (
-    <section id="categories" className="bg-paper py-16 lg:py-20">
+    <section id="categories" className="bg-paper py-8 sm:py-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="mb-10 text-center">
-          <h2 className="font-display text-2xl font-bold sm:text-3xl">
+        <div className="mb-5">
+          <h2 className="font-display text-xl font-bold">
             このサイトで探せる施設
           </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-ink-soft">
-            いずれも、医療保険・介護保険外の自費サービスとして、身体機能の維持・改善や運動継続を支援する施設です。
+          <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+            医療保険・介護保険外の運動支援などを紹介しています。カテゴリを選ぶと施設一覧を絞り込めます。
           </p>
         </div>
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {CATEGORIES.map((c) => (
-            <div
+            <button
               key={c.id}
-              className="rounded-2xl border border-line bg-white p-5 shadow-card"
+              type="button"
+              onClick={() => onSelect(c.id)}
+              title={c.description}
+              className="flex min-h-12 items-center gap-2 rounded-lg border border-line bg-white px-3 py-3 text-left text-sm font-bold hover:border-sora hover:bg-sora-soft"
             >
-              <div className="mb-3 grid h-12 w-12 place-items-center rounded-xl bg-sora-soft text-2xl">
-                <span aria-hidden="true">{c.icon}</span>
-              </div>
-              <h3 className="font-display text-base font-bold leading-snug">
-                {c.label}
-              </h3>
-              <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                {c.description}
-              </p>
-              <p className="mt-2 text-xs leading-relaxed text-wakaba-deep">
-                例：{c.examples}
-              </p>
-            </div>
+              <span aria-hidden="true">{c.icon}</span>
+              <span>{c.label}</span>
+            </button>
           ))}
         </div>
       </div>

@@ -77,7 +77,7 @@ export function FindFacilityLink() {
         エリア・目的・資格・カテゴリから、掲載施設を比較できます。
       </p>
       <Link
-        href="/#facilities"
+        href="/#search"
         className="mt-5 inline-flex min-h-12 items-center rounded-lg bg-sora-deep px-6 py-3 text-base font-bold text-white hover:bg-sora"
       >
         掲載施設を探す{" "}

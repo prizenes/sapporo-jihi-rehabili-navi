@@ -44,7 +44,7 @@ export default function Hero() {
           </p>
           <div className="mt-7 flex flex-col items-center gap-3 sm:flex-row sm:justify-center lg:justify-start">
             <a
-              href="#facilities"
+              href="#search"
               className="w-full rounded-full bg-sora px-9 py-4 text-center font-display text-lg font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-sora-deep sm:w-auto"
             >
               施設を探す
@@ -62,10 +62,15 @@ export default function Hero() {
         </div>
 
         {/* 右：検索カード風ビジュアル */}
-        <div aria-hidden="true" className="relative mx-auto hidden w-full max-w-sm sm:block">
+        <div
+          aria-hidden="true"
+          className="relative mx-auto hidden w-full max-w-sm sm:block"
+        >
           <div className="rounded-3xl border border-line bg-white/80 p-6 shadow-soft backdrop-blur">
             <p className="mb-4 flex items-center gap-2 font-display text-sm font-bold text-sora-deep">
-              <span className="grid h-8 w-8 place-items-center rounded-full bg-sora-soft">🔍</span>
+              <span className="grid h-8 w-8 place-items-center rounded-full bg-sora-soft">
+                🔍
+              </span>
               さがす条件のイメージ
             </p>
             <div className="space-y-2.5">
@@ -85,7 +90,7 @@ export default function Hero() {
             目的別 ✓
           </div>
           <div className="absolute -bottom-4 -left-4 -rotate-3 rounded-2xl bg-kinari px-4 py-2 font-display text-sm font-bold text-kinari-deep shadow-card">
-            札幌市10区に対応
+            札幌市内から探す
           </div>
         </div>
       </div>

@@ -16,6 +16,11 @@ GA4は全ページ共通の `app/layout.tsx` で読み込みます。VercelのPr
 未設定の場合も、このサイトの測定IDを使用します。開発・Vercel PreviewではGA4を読み込みません。
 Vercel AnalyticsはGA4とは別の計測サービスで、引き続き有効です。
 
+公式サイトボタンは `facility_website_click` を送信します。`facility_id` と `link_location`
+（`facility_list` / `facility_detail`）で施設・設置場所を区別できます。
+GA4でこれらのパラメータを集計軸に使う場合は、管理画面のカスタム定義でイベントスコープのディメンションとして登録してください。
+一般の外部リンクの自動計測 `click` とは別のイベントです。双方を合算して同一クリックを二重に数えないでください。
+
 公開後、自分のスマートフォンでサイトを開き、GA4の「リアルタイム」で訪問が表示されるか確認します。
 ページ移動の計測には、GA4の拡張計測機能でブラウザの履歴変更に基づくページビューを有効にしてください。
 広告ブロッカーなどによって計測されないことがあります。修正前の未計測データは復元できません。
@@ -36,6 +41,7 @@ Search Consoleで `https://sapporo-jihi-rehabili-navi.vercel.app/` のプロパ�
 - 本文は `sections` に段落・チェックリスト・比較表として登録します。画像は `public/images/` に置きます。
 - 新着情報は `data/news.ts` に追加します。URLは `/news/slug` です。実際の公開・更新に関するお知らせのみ追加してください。
 - 施設の元データは引き続き `data/facilities.ts` です。`isPublic: true` の施設だけが一覧・詳細ページ・サイトマップに含まれます。
+- 公式情報の照合結果は `data/facility-verification.ts` です。元データの確認日と照合日を区別し、取得できなかった情報は未確認のまま記録します。
 - よくある質問は `data/faq.ts`、運営者・編集方針は `app/about/page.tsx` です。
 
 公開日は実際の公開日を、更新日は本文を変更した日を記録します。今回の記事・新着情報の初回公開日は2026年10月15日です。
@@ -62,4 +68,10 @@ GA4のページ別表示数と、Search Consoleの検索語・表示回数・ク
 - `movement.jpg`: https://images.unsplash.com/photo-1518611012118-696072aa579a
 
 元配信URLは `https://images.unsplash.com/` に上記IDを付けたものです。施設写真に置き換える場合は、掲載許可を確認してから差し替えてください。
+
+## 検索改善・検証
+
+2026年10月15日の差分と資料照合は `docs/search-improvement-2026-10-15.md` に記載しています。
+`node scripts/verify-site.cjs http://localhost:3012` でローカルを、公開URLを引数に指定すると本番のGA4送信も確認できます。
+この検証スクリプトにはPlaywrightとブラウザが必要です。`PLAYWRIGHT_MODULE`、`PLAYWRIGHT_CHANNEL` で既存の実行環境を指定できます。
 

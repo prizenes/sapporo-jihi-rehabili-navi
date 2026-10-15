@@ -50,6 +50,17 @@ export function NewsSection() {
 }
 
 export function GuideSection() {
+  const featuredSlugs = [
+    "after-hospital-exercise-support",
+    "what-is-private-rehabilitation",
+    "physical-therapist-personal-gym",
+  ];
+  const featured = featuredSlugs.flatMap((slug) =>
+    ARTICLES.filter((article) => article.slug === slug),
+  );
+  const others = ARTICLES.filter(
+    (article) => !featuredSlugs.includes(article.slug),
+  );
   return (
     <section
       id="guides"
@@ -63,7 +74,7 @@ export function GuideSection() {
               id="guides-heading"
               className="font-display text-2xl font-bold sm:text-3xl"
             >
-              はじめての施設選びに、役立つ読みもの
+              リハビリ・運動のお役立ち情報
             </h2>
             <p className="mt-3 text-base text-ink-soft">
               何を相談する？ いくらかかる？ 迷ったときの確認ポイント。
@@ -77,14 +88,14 @@ export function GuideSection() {
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {ARTICLES.slice(0, 3).map((article) => (
+          {featured.map((article) => (
             <ArticleCard key={article.slug} article={article} />
           ))}
         </div>
         <div className="mt-8 border-t border-sora/20 pt-5">
           <p className="text-sm font-bold text-wakaba-deep">あわせて読みたい</p>
           <ul className="mt-3 grid gap-3 md:grid-cols-2">
-            {ARTICLES.slice(3).map((article) => (
+            {others.map((article) => (
               <li key={article.slug}>
                 <Link
                   href={`/blog/${article.slug}`}

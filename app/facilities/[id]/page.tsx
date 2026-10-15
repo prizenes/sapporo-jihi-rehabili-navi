@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ContentLayout, { Breadcrumbs } from "@/components/ContentLayout";
 import StructuredData from "@/components/StructuredData";
+import FacilityWebsiteLink from "@/components/FacilityWebsiteLink";
+import FacilitySourceCheck from "@/components/FacilitySourceCheck";
 import { sortedPublicFacilities, categoryLabel } from "@/data/facilities";
 import { SITE_URL, formatDate, pageMetadata } from "@/lib/site";
 
@@ -62,7 +64,7 @@ export default function FacilityDetailPage({ params }: Props) {
           </h1>
           <p className="mt-4 text-base leading-loose">{facility.tagline}</p>
           <p className="mt-4 text-sm text-ink-soft">
-            {facility.displayStatus} · 情報確認日{" "}
+            {facility.displayStatus} · 掲載データ確認日{" "}
             {facility.checkedAt ? (
               <time dateTime={facility.checkedAt}>
                 {formatDate(facility.checkedAt)}
@@ -73,7 +75,9 @@ export default function FacilityDetailPage({ params }: Props) {
           </p>
         </header>
         <section className="py-8">
-          <h2 className="mb-5 font-display text-xl font-bold">施設情報</h2>
+          <h2 className="mb-5 font-display text-xl font-bold">
+            施設情報（掲載時のデータ）
+          </h2>
           <dl className="divide-y divide-line border-y border-line">
             {rows.map(([label, value]) => (
               <div
@@ -86,6 +90,7 @@ export default function FacilityDetailPage({ params }: Props) {
             ))}
           </dl>
         </section>
+        <FacilitySourceCheck facilityId={facility.id} />
         <aside className="border-l-4 border-wakaba bg-wakaba-soft p-5">
           <h2 className="font-bold">利用前に、最新情報をご確認ください</h2>
           <p className="mt-2 text-sm leading-loose">
@@ -94,14 +99,14 @@ export default function FacilityDetailPage({ params }: Props) {
         </aside>
         <div className="my-7 flex flex-wrap gap-3">
           {facility.site && (
-            <a
+            <FacilityWebsiteLink
               href={facility.site}
-              target="_blank"
-              rel="noopener noreferrer"
+              facilityId={facility.id}
+              placement="facility_detail"
               className="rounded-lg bg-sora-deep px-6 py-3 text-base font-bold text-white hover:bg-sora"
             >
               公式サイトへ（外部）
-            </a>
+            </FacilityWebsiteLink>
           )}
           {facility.contact && (
             <a
