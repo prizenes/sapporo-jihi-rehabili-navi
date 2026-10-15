@@ -25,6 +25,7 @@ Vercel AnalyticsはGA4とは別の計測サービスで、引き続き有効で�
 Search Consoleで `https://sapporo-jihi-rehabili-navi.vercel.app/` のプロパティを選択します。
 「URL検査」でトップページを検査し、未登録であれば「インデックス登録をリクエスト」します。
 「サイトマップ」に `https://sapporo-jihi-rehabili-navi.vercel.app/sitemap.xml` を送信してください。
+既存の所有権確認ファイル `public/google7c5e558402d1d832.html` は削除しないでください。
 検索登録や順位上昇は保証されません。「検索パフォーマンス」で表示回数とクリック数を確認します。
 サイトマップは `app/sitemap.ts` が記事・新着情報・公開施設のデータから自動生成します。
 
