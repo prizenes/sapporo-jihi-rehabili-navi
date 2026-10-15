@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sapporo-jihi-rehabili-navi.vercel.app/sitemap.xml

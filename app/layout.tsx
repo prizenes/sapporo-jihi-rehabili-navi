@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Zen_Maru_Gothic, Noto_Sans_JP } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+
+const gaId = process.env.NEXT_PUBLIC_GA_ID || "G-HB1Z9BRRJ3";
+const analyticsEnabled =
+  process.env.NODE_ENV === "production" &&
+  (!process.env.VERCEL_ENV || process.env.VERCEL_ENV === "production") &&
+  /^G-[A-Z0-9]+$/.test(gaId);
 
 const display = Zen_Maru_Gothic({
   weight: ["500", "700"],
@@ -18,6 +25,7 @@ const body = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://sapporo-jihi-rehabili-navi.vercel.app/"),
   title:
     "札幌 自費リハビリナビ｜理学療法士・作業療法士が関わる整体・ピラティス・ジム・運動支援施設検索",
   description:
@@ -61,6 +69,20 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         {children}
+        {analyticsEnabled && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}
+              strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '${gaId}');`}
+            </Script>
+          </>
+        )}
         <Analytics />
       </body>
     </html>
