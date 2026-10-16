@@ -165,6 +165,9 @@ async function main() {
     assert(
       urls.some((url) => url.endsWith("/blog/what-is-private-rehabilitation")),
     );
+    assert(
+      urls.some((url) => url.endsWith("/blog/sapporo-senior-exercise-consultation")),
+    );
     for (const url of urls) {
       const response = await context.request.get(base + new URL(url).pathname);
       assert.equal(response.status(), 200, url);
@@ -176,6 +179,7 @@ async function main() {
     assert(!(await robots.text()).includes("Disallow: /"));
 
     const articlePaths = [
+      "/blog/sapporo-senior-exercise-consultation",
       "/blog/after-hospital-exercise-support",
       "/blog/what-is-private-rehabilitation",
       "/blog/physical-therapist-personal-gym",

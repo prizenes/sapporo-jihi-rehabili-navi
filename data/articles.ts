@@ -1,4 +1,5 @@
 import { PRIVATE_REHAB_OVERVIEW } from "@/data/private-rehab-overview";
+import { SAPPORO_PREVENTION_CONSULTATION } from "@/data/sapporo-prevention-consultation";
 
 export interface ArticleSection {
   id: string;
@@ -25,6 +26,7 @@ export interface GuideArticle {
 }
 
 export const ARTICLES: GuideArticle[] = [
+  SAPPORO_PREVENTION_CONSULTATION,
   PRIVATE_REHAB_OVERVIEW,
   {
     slug: "sapporo-private-rehab-guide",
