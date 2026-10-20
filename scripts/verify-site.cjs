@@ -96,7 +96,7 @@ async function main() {
     const formUrls = await page
       .locator('main a[href*="docs.google.com/forms"]')
       .evaluateAll((nodes) => nodes.map((node) => node.href));
-    for (const [ward, count] of [["中央区", 2], ["西区", 4], ["手稲区", 2]]) {
+    for (const [ward, count] of [["中央区", 1], ["西区", 2], ["手稲区", 1]]) {
       await page.getByLabel("エリア", { exact: true }).selectOption(ward);
       assert.equal(await page.locator("#facilities article").count(), count, ward);
     }
@@ -109,7 +109,7 @@ async function main() {
     await page
       .getByRole("button", { name: "条件をリセット", exact: true })
       .click();
-    assert.equal(await page.locator("#facilities article").count(), 13);
+    assert.equal(await page.locator("#facilities article").count(), 8);
     for (const viewport of [
       { width: 320, height: 740 },
       { width: 390, height: 844 },
@@ -145,7 +145,7 @@ async function main() {
         page.waitForEvent("popup"),
         page
           .locator(
-            'a[data-facility-id="phact"][data-link-location="facility_list"]',
+            'a[data-facility-id="amilus"][data-link-location="facility_list"]',
           )
           .click(),
       ]);
@@ -193,13 +193,8 @@ async function main() {
     for (const path of [
       ...articlePaths,
       "/facilities/priseness",
-      "/facilities/phact",
-      "/facilities/seitai-sakka",
-      "/facilities/hagukumi",
-      "/facilities/kinmaq-teineyamaguchi",
       "/facilities/toreriha-club",
       "/facilities/amilus",
-      "/facilities/physiowellness-maruyama",
     ]) {
       await page.goto(base + path, { waitUntil: "domcontentloaded" });
       assert.equal(await page.locator("h1").count(), 1);
@@ -248,10 +243,14 @@ async function main() {
         formUrls.some((url) => url.includes(id)),
         `Existing form changed: ${id}`,
       );
-    const hidden = await context.request.get(base + "/facilities/field-cruise");
-    assert.equal(hidden.status(), 404);
+    for (const id of ["field-cruise", "phact", "seitai-sakka", "hagukumi", "kinmaq-teineyamaguchi", "physiowellness-maruyama"]) {
+      const path = "/facilities/" + id;
+      assert(!urls.some((url) => new URL(url).pathname === path), path);
+      const hidden = await context.request.get(base + path);
+      assert.equal(hidden.status(), 404, path);
+    }
     if (isProduction) {
-      await page.goto(base + "/facilities/phact");
+      await page.goto(base + "/facilities/amilus");
       const detailClick = waitGA(
         (event) =>
           event.event === "facility_website_click" &&
@@ -261,7 +260,7 @@ async function main() {
         page.waitForEvent("popup"),
         page
           .locator(
-            'a[data-facility-id="phact"][data-link-location="facility_detail"]',
+            'a[data-facility-id="amilus"][data-link-location="facility_detail"]',
           )
           .click(),
       ]);
