@@ -4,7 +4,8 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-4 text-center sm:px-6">
         <section id="notice" aria-labelledby="notice-heading" className="mx-auto mb-8 max-w-3xl border-b border-white/30 pb-7 text-left">
           <h2 id="notice-heading" className="text-base font-bold text-white">ご利用にあたって</h2>
-          <p className="mt-3 text-sm leading-loose">掲載情報は公開情報・施設からの提供情報をもとにしています。各サービスは医療機関での診断・治療の代わりではなく、掲載は効果やサービス品質を保証するものではありません。医学的な判断が必要な場合は医療機関にご相談ください。予約・料金・担当者については各施設へ直接お問い合わせください。</p>
+          <p className="mt-3 text-sm leading-loose">当サイトは、各施設の公式サイト等で公開されている情報をもとに、運営者が独自に編集した施設ガイドです。掲載は、各施設との提携・推薦関係を示すものではありません。掲載内容の修正・削除については、<a href="/contact#fix" className="underline underline-offset-4">お問い合わせください</a>。</p>
+          <p className="mt-3 text-sm leading-loose">各サービスは医療機関での診断・治療の代わりではなく、掲載は効果やサービス品質を保証するものではありません。医学的な判断が必要な場合は医療機関にご相談ください。予約・料金・担当者については各施設へ直接お問い合わせください。</p>
         </section>
         <p className="font-display text-lg font-bold text-white">
           札幌 自費リハビリナビ

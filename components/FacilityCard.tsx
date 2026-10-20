@@ -1,23 +1,25 @@
 import Link from "next/link";
-import { ArrowRight, MapPin, UserRound } from "lucide-react";
-import type { Facility } from "@/data/facilities";
+import { Activity, ArrowRight, HeartPulse, MapPin, PersonStanding, UserRound } from "lucide-react";
+import { categoryLabel, type Facility } from "@/data/facilities";
 import { facilityGuide } from "@/data/facility-guide";
 import FacilityMedia from "@/components/FacilityMedia";
 import FacilityWebsiteLink from "@/components/FacilityWebsiteLink";
 
 export default function FacilityCard({ facility: f }: { facility: Facility }) {
   const guide = facilityGuide(f);
+  const CategoryIcon = f.categories.includes("medical-fitness") ? HeartPulse : f.categories.includes("pilates") ? PersonStanding : Activity;
   return (
     <article className="flex min-w-0 flex-col overflow-hidden rounded-lg border border-line bg-white">
-      <Link
+      {guide.photo && <Link
         href={`/facilities/${f.id}`}
         aria-label={`${f.name}の特徴・料金を見る`}
       >
         <FacilityMedia name={f.name} photo={guide.photo} />
-      </Link>
+      </Link>}
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <p className="mb-2 text-sm font-bold text-wakaba-deep">
-          {f.ward} · {f.serviceTypes.join(" / ")}
+        <p className="mb-2 flex items-start gap-2 text-sm font-bold text-wakaba-deep">
+          <CategoryIcon size={20} className="shrink-0" aria-hidden="true" />
+          <span>{f.ward} · {categoryLabel(f.categories[0])}</span>
         </p>
         <h3 className="font-display text-xl font-bold leading-relaxed">
           <Link href={`/facilities/${f.id}`} className="hover:text-sora-deep">
@@ -25,6 +27,9 @@ export default function FacilityCard({ facility: f }: { facility: Facility }) {
           </Link>
         </h3>
         <p className="mt-3 text-base leading-relaxed">{f.tagline}</p>
+        {guide.reception && <p className="mt-3 border-l-2 border-sora pl-3 text-sm leading-relaxed">
+          <a href={guide.reception.url} target="_blank" rel="noopener noreferrer" className="text-sora-deep underline underline-offset-4">{guide.reception.message}</a>
+        </p>}
         <p className="mt-4 text-sm leading-relaxed">
           <strong className="block text-ink">こんな方におすすめ</strong>
           {f.targets.slice(0, 3).join("・")}

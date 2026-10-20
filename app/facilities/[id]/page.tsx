@@ -47,6 +47,10 @@ export default function FacilityDetailPage({ params }: Props) {
             {f.name}
           </h1>
           <p className="mt-4 text-base leading-loose">{f.tagline}</p>
+          {guide.reception && <aside className="mt-5 border-l-2 border-sora bg-sora-soft p-4 text-sm leading-loose" aria-label="受付状況">
+            <a href={guide.reception.url} target="_blank" rel="noopener noreferrer" className="font-bold text-sora-deep underline underline-offset-4">{guide.reception.message}</a>
+            <p>受付状況の確認日：<time dateTime={guide.reception.checkedAt}>{formatDate(guide.reception.checkedAt)}</time>。最新の受付状況は施設へお問い合わせください。</p>
+          </aside>}
           <FacilityMedia name={f.name} photo={guide.photo} large />
         </header>
         <section className="detail-section" aria-labelledby="recommend-heading">

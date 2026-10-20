@@ -19,6 +19,12 @@ function readData(file) {
 const { FACILITIES } = readData("data/facilities.ts");
 const { PURPOSE_ENTRIES, FACILITY_GUIDES } = readData("data/facility-guide.ts");
 const facilities = FACILITIES.filter((f) => f.isPublic);
+const requested = ["spocli-labo", "asabu-heart-fitness", "c-link", "stroke-gym", "noureha-sapporo-chuo", "nou-to-karada-lab", "i-bloom", "geek-pilates-club", "pilates-oto", "r-zone"];
+for (const id of requested) assert.equal(facilities.filter(f => f.id === id).length, 1, id);
+assert.equal(new Set(FACILITIES.map(f => f.id)).size, FACILITIES.length);
+assert.equal(facilities.find(f => f.id === "noureha-sapporo-chuo").ward, "南区");
+assert.equal(FACILITY_GUIDES["pilates-oto"].staffQualifications.includes("理学療法士"), false);
+assert.equal(FACILITY_GUIDES["asabu-heart-fitness"].staffQualifications.includes("理学療法士"), false);
 async function main() {
   const browser = await chromium.launch({ channel: "msedge", headless: true });
   const context = await browser.newContext();
@@ -45,6 +51,10 @@ async function main() {
     for (const width of [320, 390, 1280]) {
       await page.setViewportSize({ width, height: 900 });
       await page.goto(base, { waitUntil: "networkidle" });
+      assert.equal(await page.getByText("施設写真準備中", { exact: true }).count(), 0);
+      assert.equal(await page.locator("#facilities figure").count(), 0);
+      const reception = page.locator('#facilities article').filter({has: page.locator('h3 a[href="/facilities/spocli-labo"]')});
+      assert.equal(await reception.getByRole("link", {name:"新規会員募集停止のお知らせあり"}).getAttribute("href"), "https://spocli-labo.jp/news/2026/09/15/202/");
       await page.screenshot({
         path: `outputs/resident-preview-20261020/home-${width}.png`,
       });
@@ -116,6 +126,14 @@ async function main() {
           "公式サイト・お問い合わせ",
         ]);
         const guide = FACILITY_GUIDES[f.id];
+        assert.equal(await page.locator('a[data-link-location="facility_detail"]').getAttribute("href"), f.site);
+        if (f.contact) assert.equal(await page.getByRole("link", {name:"施設に問い合わせる", exact:true}).getAttribute("href"), f.contact);
+        assert.equal(await page.locator("article figure").count(), guide.photo ? 1 : 0);
+        assert(!text.includes("施設写真準備中"), f.id);
+        if (guide.reception) {
+          assert.equal(await page.getByRole("link", {name:guide.reception.message, exact:true}).getAttribute("href"), guide.reception.url);
+          assert.equal(await page.locator('aside time').getAttribute("datetime"), guide.reception.checkedAt);
+        }
         if (!guide.staffQualifications.length)
           assert(!text.includes("スタッフの保有資格"), f.id);
         assert.equal(
@@ -175,6 +193,10 @@ async function main() {
       );
     }
     await page.goto(base);
+    for (const category of ["medical-fitness", "rehab", "pilates"]) {
+      await page.getByLabel("カテゴリ", { exact: true }).selectOption(category);
+      await checkResults(facilities.filter(f => f.categories.includes(category)));
+    }
     await page.getByLabel("カテゴリ", { exact: true }).selectOption("medical-fitness");
     await checkResults(facilities.filter(f => f.categories.includes("medical-fitness")));
     assert.equal(await page.locator('#facilities h3 a[href="/facilities/spocli-labo"]').count(), 1);

@@ -27,6 +27,7 @@ export const FACILITY_VERIFICATIONS: Record<string, FacilityVerification> = {
     sources: [
       { title: "公式サービス・スタッフ・料金・アクセス", url: "https://spocli-labo.jp/" },
       { title: "公式問い合わせ", url: "https://spocli-labo.jp/contact/" },
+      { title: "新規会員募集停止（2026-09-15、2026-10-20本文確認）", url: "https://spocli-labo.jp/news/2026/09/15/202/" },
     ],
   },
   "seitai-sakka": {

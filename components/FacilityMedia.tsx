@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Building2 } from "lucide-react";
 import type { FacilityGuide } from "@/data/facility-guide";
 
 export default function FacilityMedia({
@@ -11,12 +10,12 @@ export default function FacilityMedia({
   photo?: FacilityGuide["photo"];
   large?: boolean;
 }) {
+  if (!photo) return null;
   return (
     <figure className={large ? "my-7" : ""}>
       <div
         className={`relative flex items-center justify-center overflow-hidden bg-sora-soft ${large ? "aspect-[16/7] rounded-lg" : "aspect-[16/6]"}`}
       >
-        {photo ? (
           <Image
             src={photo.src}
             alt={photo.alt}
@@ -28,16 +27,6 @@ export default function FacilityMedia({
             }
             className="object-cover"
           />
-        ) : (
-          <div className="flex items-center gap-3 text-sora-deep">
-            <Building2
-              size={large ? 42 : 32}
-              strokeWidth={1.3}
-              aria-hidden="true"
-            />
-            <span className="text-sm font-medium">施設写真準備中</span>
-          </div>
-        )}
       </div>
       {photo && (
         <figcaption className="mt-2 text-xs text-ink-soft">

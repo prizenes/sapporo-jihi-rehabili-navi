@@ -12,6 +12,10 @@ const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
 const base = (process.argv[2] || "http://localhost:3012").replace(/\/$/, "");
 const productionOrigin = "https://sapporo-jihi-rehabili-navi.vercel.app";
 const isProduction = base === productionOrigin;
+const ts = require("typescript");
+const facilityModule = { exports: {} };
+new Function("module", "exports", ts.transpile(fs.readFileSync("data/facilities.ts", "utf8"), { module: ts.ModuleKind.CommonJS }))(facilityModule, facilityModule.exports);
+const publicFacilities = facilityModule.exports.FACILITIES.filter(f => f.isPublic);
 
 function analyticsEvents(response) {
   const request = response.request();
@@ -96,7 +100,8 @@ async function main() {
     const formUrls = await page
       .locator('main a[href*="docs.google.com/forms"]')
       .evaluateAll((nodes) => nodes.map((node) => node.href));
-    for (const [ward, count] of [["中央区", 2], ["西区", 2], ["手稲区", 1]]) {
+    for (const ward of ["中央区", "西区", "手稲区", "北区", "東区", "南区"]) {
+      const count = publicFacilities.filter(f => f.ward === ward).length;
       await page.getByLabel("エリア", { exact: true }).selectOption(ward);
       assert.equal(await page.locator("#facilities article").count(), count, ward);
     }
@@ -109,7 +114,7 @@ async function main() {
     await page
       .getByRole("button", { name: "条件をリセット", exact: true })
       .click();
-    assert.equal(await page.locator("#facilities article").count(), 9);
+    assert.equal(await page.locator("#facilities article").count(), publicFacilities.length);
     for (const viewport of [
       { width: 320, height: 740 },
       { width: 390, height: 844 },
