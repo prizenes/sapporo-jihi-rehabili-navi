@@ -96,7 +96,11 @@ async function main() {
     const formUrls = await page
       .locator('main a[href*="docs.google.com/forms"]')
       .evaluateAll((nodes) => nodes.map((node) => node.href));
-    await page.getByLabel("エリア", { exact: true }).selectOption("中央区");
+    for (const [ward, count] of [["中央区", 2], ["西区", 4], ["手稲区", 2]]) {
+      await page.getByLabel("エリア", { exact: true }).selectOption(ward);
+      assert.equal(await page.locator("#facilities article").count(), count, ward);
+    }
+    await page.getByLabel("エリア", { exact: true }).selectOption("厚別区");
     assert.equal(await page.locator("#facilities article").count(), 0);
     await page
       .locator("#facilities")
@@ -105,7 +109,7 @@ async function main() {
     await page
       .getByRole("button", { name: "条件をリセット", exact: true })
       .click();
-    assert.equal(await page.locator("#facilities article").count(), 7);
+    assert.equal(await page.locator("#facilities article").count(), 13);
     for (const viewport of [
       { width: 320, height: 740 },
       { width: 390, height: 844 },
@@ -190,6 +194,12 @@ async function main() {
       ...articlePaths,
       "/facilities/priseness",
       "/facilities/phact",
+      "/facilities/seitai-sakka",
+      "/facilities/hagukumi",
+      "/facilities/kinmaq-teineyamaguchi",
+      "/facilities/toreriha-club",
+      "/facilities/amilus",
+      "/facilities/physiowellness-maruyama",
     ]) {
       await page.goto(base + path, { waitUntil: "domcontentloaded" });
       assert.equal(await page.locator("h1").count(), 1);

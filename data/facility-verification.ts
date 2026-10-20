@@ -15,6 +15,91 @@ export interface FacilityVerification {
 
 // These are source checks, not approval by a facility or changes to its listing.
 export const FACILITY_VERIFICATIONS: Record<string, FacilityVerification> = {
+  "seitai-sakka": {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式トップに整体院札佳と記載されています。" },
+      address: { confirmed: true, note: "公式トップとスタッフページの住所欄で山の手三条1-3-25 プリエ琴似507を確認しました。" },
+      qualifications: { confirmed: true, note: "公式トップの院長紹介に理学療法士と記載されています。他スタッフの資格は異なるため、担当者は予約時にご確認ください。" },
+      services: { confirmed: true, note: "公式トップに個室での整体、手技と運動を組み合わせたメニューの案内があります。医療機関でのリハビリと同じとは限りません。" },
+      pricing: { confirmed: false, note: "公式トップに2回目以降の整体30分10,000円、新規80分2,980円の表記があります。初回の適用条件・税込総額は今回確定できていません。予約時にご確認ください。" },
+    },
+    sources: [
+      { title: "公式施設・院長・メニュー・所在地", url: "https://seitai-sakka.com/" },
+      { title: "公式スタッフページ・住所欄", url: "https://seitai-sakka.com/staff/" },
+    ],
+  },
+  hagukumi: {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式施設紹介にココロとカラダの整体院 はぐくみと記載されています。" },
+      address: { confirmed: true, note: "公式サイトの所在地欄で札幌市西区西野四条3-1-38を確認しました。" },
+      qualifications: { confirmed: true, note: "公式施設紹介に院長が理学療法士の国家資格を保有すると記載されています。資格の関与方法は公式の案内に基づいています。" },
+      services: { confirmed: true, note: "公式メニューと施設紹介に予約制の個別ケア・コンディショニングの案内があります。効果や疾患への対応を保証する表現は転載していません。" },
+      pricing: { confirmed: false, note: "公式メニューにはベーシックケア7,000円（税込）・初回加算1,000円の案内がありますが、施設紹介に別の金額・所要時間も残っています。最新の料金・時間を直接ご確認ください。" },
+    },
+    sources: [
+      { title: "公式施設紹介・資格・所在地", url: "https://hagukumi2019.com/access/Kokorotokaradanoseitaiin_Hagukumi/" },
+      { title: "公式メニュー・料金", url: "https://hagukumi2019.com/menu/" },
+    ],
+  },
+  "kinmaq-teineyamaguchi": {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式店舗ページにNext整体KINMAQ イオン手稲山口院と記載されています。" },
+      address: { confirmed: true, note: "公式アクセス欄に手稲区明日風6丁目1-1 イオンスーパーセンター手稲山口店内1階と記載されています。" },
+      qualifications: { confirmed: true, note: "公式店舗ページのFAQに施術スタッフは理学療法士と記載されています。当日の担当・在籍状況は予約前にご確認ください。" },
+      services: { confirmed: true, note: "公式店舗ページで整体、筋膜に着目したケア、姿勢・動きに関する相談の案内を確認しました。改善効果を保証する文言は掲載していません。" },
+      pricing: { confirmed: false, note: "初回限定2,980円などの表記を確認しましたが、適用条件や継続時の総額まで確定していないため、限定価格を通常料金として掲載していません。" },
+    },
+    sources: [
+      { title: "公式店舗・スタッフ・FAQ・アクセス・料金案内", url: "https://kinmaq.com/branch/hokkaido/teineyamaguchi/" },
+    ],
+  },
+  "toreriha-club": {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式サイトの施設概要にトレリハCLUBと記載されています。" },
+      address: { confirmed: true, note: "公式施設概要で手稲区前田5条13丁目3番地1号 トライアル手稲店を確認しました。2階の表記は手稲区社会福祉協議会の地域情報とも照合しました。" },
+      qualifications: { confirmed: true, note: "公式プラン本文に理学療法士がメニューを作成する旨の記載があります。現時点のスタッフ在籍や、すべての回を理学療法士が担当することまでは確認できていません。" },
+      services: { confirmed: true, note: "公式サイトで個別コンディショニング、グループレッスン、スポーツ向けプランを確認しました。系列の介護保険サービスとは区別しています。" },
+      pricing: { confirmed: false, note: "公式プランに月額8,250円＋入会金3,850円、チケット7,150円〜／回の記載を確認しました。プランごとの条件、税込総額は施設へご確認ください。" },
+    },
+    sources: [
+      { title: "公式施設概要・所在地・問い合わせ", url: "https://torerihaclub.net/" },
+      { title: "公式サービス・プラン（資格者の関与・料金）", url: "https://torerihaclub.net/serviceplan-members" },
+      { title: "札幌市社会福祉協議会の手稲区地域情報（所在地補足）", url: "https://www.sapporo-shakyo.or.jp/files/00007500/00007581/20260312134633.pdf" },
+    ],
+  },
+  amilus: {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式施設案内でTraining Studio AMILUSの名称を確認しました。" },
+      address: { confirmed: true, note: "公式アクセスに中央区北2条東9丁目90-28 リーサ苗穂駅前1Fと記載されています。" },
+      qualifications: { confirmed: true, note: "公式料金ページに理学療法士資格を持つコーチがパーソナルトレーニングを指導すると記載されています。" },
+      services: { confirmed: true, note: "公式料金・プランでパーソナルトレーニング、コンディショニング、ランニングコンサルティングを確認しました。" },
+      pricing: { confirmed: true, note: "公式料金表に60分チケット1回11,000円（税込）・入会金なしと記載されています。月会員・学割・体験は別条件です。最新の条件をご確認ください。" },
+    },
+    sources: [
+      { title: "公式料金・プラン・資格者の関与", url: "https://amilus-studio.com/plan-price/" },
+      { title: "公式施設・アクセス", url: "https://amilus-studio.com/studio-access/" },
+    ],
+  },
+  "physiowellness-maruyama": {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式サイトでフィジオウェルネス マルヤマの施設名を確認しました。" },
+      address: { confirmed: true, note: "公式所在地欄で中央区南1条西25丁目1-17 Maruyama S1ビル3Fを確認しました。" },
+      qualifications: { confirmed: true, note: "公式代表紹介に理学療法士と記載されています。医療機関ではない旨の説明も確認しました。" },
+      services: { confirmed: true, note: "公式サービス案内で整体、スポーツフォーム・トレーニング方法の相談、靴の調整・インソール作成を確認しました。" },
+      pricing: { confirmed: true, note: "公式料金に整体約60分8,800円、初回検査・評価2,200円（税込）と記載されています。靴関連・学割などは別条件のため、予約時に総額をご確認ください。" },
+    },
+    sources: [
+      { title: "公式代表紹介・所在地", url: "https://physiowellness.jp/about.php" },
+      { title: "公式サービス案内", url: "https://physiowellness.jp/seitai.php" },
+      { title: "公式料金システム", url: "https://physiowellness.jp/system.php" },
+    ],
+  },
   priseness: {
     reviewedAt: "2026-10-15",
     checks: {
