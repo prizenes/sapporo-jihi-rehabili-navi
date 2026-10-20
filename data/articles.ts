@@ -1,5 +1,6 @@
 import { PRIVATE_REHAB_OVERVIEW } from "@/data/private-rehab-overview";
 import { SAPPORO_PREVENTION_CONSULTATION } from "@/data/sapporo-prevention-consultation";
+import { SAPPORO_HOME_EXERCISE } from "@/data/sapporo-home-exercise";
 
 export interface ArticleSection {
   id: string;
@@ -26,6 +27,7 @@ export interface GuideArticle {
 }
 
 export const ARTICLES: GuideArticle[] = [
+  SAPPORO_HOME_EXERCISE,
   SAPPORO_PREVENTION_CONSULTATION,
   PRIVATE_REHAB_OVERVIEW,
   {

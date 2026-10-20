@@ -162,6 +162,7 @@ async function main() {
       sitemap,
     );
     assert.equal(new Set(urls).size, urls.length);
+    assert(urls.some((url) => url.endsWith("/blog/sapporo-home-exercise-support")));
     assert(
       urls.some((url) => url.endsWith("/blog/what-is-private-rehabilitation")),
     );
@@ -179,6 +180,7 @@ async function main() {
     assert(!(await robots.text()).includes("Disallow: /"));
 
     const articlePaths = [
+      "/blog/sapporo-home-exercise-support",
       "/blog/sapporo-senior-exercise-consultation",
       "/blog/after-hospital-exercise-support",
       "/blog/what-is-private-rehabilitation",
