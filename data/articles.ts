@@ -299,7 +299,7 @@ export const ARTICLES: GuideArticle[] = [
     slug: "physical-therapist-personal-gym",
     title: "理学療法士がいる整体・ジム・ピラティスはどう選ぶ？",
     description:
-      "札幌で理学療法士がいる整体・ジム・ピラティスを選ぶ方へ。資格者の関与方法、提供内容、医療との違い、体験前に確かめたい項目を整理します。",
+      "札幌で理学療法士がいる整体・ジム・ピラティスを選ぶ方へ。指導・サポート体制、提供内容、医療との違い、体験前に確かめたい項目を整理します。",
     category: "施設の選び方",
     image: "/images/training.jpg",
     imageAlt: "パーソナルトレーニングのイメージ",

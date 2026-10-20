@@ -8,7 +8,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: { DEFAULT: "#2F3B41", soft: "#647781" },
+        ink: { DEFAULT: "#2F3B41", soft: "#52656F" },
         line: "#DCE7EC",
         paper: "#FCFDFD",
         sora: { soft: "#E9F3F8", DEFAULT: "#4A8AB0", deep: "#2F6485" },

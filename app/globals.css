@@ -21,4 +21,10 @@
   h1, h2, h3, p, li, dd {
     overflow-wrap: anywhere;
   }
+  .detail-section {
+    @apply border-t border-line py-7 sm:py-9;
+  }
+  .detail-section > h2 {
+    @apply font-display text-xl font-bold sm:text-2xl;
+  }
 }

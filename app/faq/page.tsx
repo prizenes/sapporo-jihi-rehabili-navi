@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata(
   "自費リハビリ・施設検索のよくある質問",
-  "施設選び、費用、資格者の関わり方、掲載情報についての質問にお答えします。札幌で自費の運動支援を探す方とご家族へ。",
+  "施設選び、費用、指導・サポート体制、利用方法についての質問にお答えします。札幌で自費の運動支援を探す方とご家族へ。",
   "/faq",
 );
 export default function FaqPage() {

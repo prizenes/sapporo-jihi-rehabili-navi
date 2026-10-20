@@ -2,12 +2,10 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Explore from "@/components/Explore";
 import RecruitSection from "@/components/RecruitSection";
-import NoticeSection from "@/components/NoticeSection";
 import Footer from "@/components/Footer";
 import {
   FaqSection,
   GuideSection,
-  NewsSection,
 } from "@/components/EditorialSections";
 
 export const metadata = {
@@ -23,10 +21,8 @@ export default function Home() {
         <Explore>
           <GuideSection />
         </Explore>
-        <NewsSection />
         <FaqSection />
         <RecruitSection />
-        <NoticeSection />
       </main>
       <Footer />
     </>

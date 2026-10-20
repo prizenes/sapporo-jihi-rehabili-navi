@@ -15,6 +15,20 @@ export interface FacilityVerification {
 
 // These are source checks, not approval by a facility or changes to its listing.
 export const FACILITY_VERIFICATIONS: Record<string, FacilityVerification> = {
+  "spocli-labo": {
+    reviewedAt: "2026-10-20",
+    checks: {
+      name: { confirmed: true, note: "公式トップでSports & Medical fitness スポクリLABOを確認。" },
+      address: { confirmed: true, note: "公式アクセス欄に中央区大通東4丁目1-19 大通東やまむらセンタービル3F、バスセンター前駅8番出口直結と記載。" },
+      qualifications: { confirmed: true, note: "公式スタッフ紹介に理学療法士のトレーナー3名の案内を確認。毎回の担当者を保証するものではない。" },
+      services: { confirmed: true, note: "公式でメディカルフィットネス、カウンセリング、身体機能評価、個別・自主トレーニングを確認。医療機関での検査は提携先・会員区分により別条件。" },
+      pricing: { confirmed: true, note: "入会金16,500円、レギュラー月額16,500円、パーソナル月額27,500円、メディカル月額46,200円（各税込）の表記を確認。個別指導回数にはページ内の表記差があるため回数は掲載しない。" },
+    },
+    sources: [
+      { title: "公式サービス・スタッフ・料金・アクセス", url: "https://spocli-labo.jp/" },
+      { title: "公式問い合わせ", url: "https://spocli-labo.jp/contact/" },
+    ],
+  },
   "seitai-sakka": {
     reviewedAt: "2026-10-20",
     checks: {

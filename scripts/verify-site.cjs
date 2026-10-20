@@ -90,13 +90,13 @@ async function main() {
       await page
         .locator("main > section")
         .evaluateAll((nodes) => nodes.slice(0, 4).map((node) => node.id)),
-      ["top", "search", "facilities", "guides"],
+      ["top", "purpose", "search", "facilities"],
     );
     assert.equal(await page.locator("#guides article").count(), 3);
     const formUrls = await page
       .locator('main a[href*="docs.google.com/forms"]')
       .evaluateAll((nodes) => nodes.map((node) => node.href));
-    for (const [ward, count] of [["中央区", 1], ["西区", 2], ["手稲区", 1]]) {
+    for (const [ward, count] of [["中央区", 2], ["西区", 2], ["手稲区", 1]]) {
       await page.getByLabel("エリア", { exact: true }).selectOption(ward);
       assert.equal(await page.locator("#facilities article").count(), count, ward);
     }
@@ -109,7 +109,7 @@ async function main() {
     await page
       .getByRole("button", { name: "条件をリセット", exact: true })
       .click();
-    assert.equal(await page.locator("#facilities article").count(), 8);
+    assert.equal(await page.locator("#facilities article").count(), 9);
     for (const viewport of [
       { width: 320, height: 740 },
       { width: 390, height: 844 },
@@ -195,6 +195,7 @@ async function main() {
       "/facilities/priseness",
       "/facilities/toreriha-club",
       "/facilities/amilus",
+      "/facilities/spocli-labo",
     ]) {
       await page.goto(base + path, { waitUntil: "domcontentloaded" });
       assert.equal(await page.locator("h1").count(), 1);
