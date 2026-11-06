@@ -1,0 +1,71 @@
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const { chromium } = require(process.env.PLAYWRIGHT_MODULE || "playwright");
+const base = (process.argv[2] || "http://localhost:3036").replace(/\/$/, "");
+const origin = "https://sapporo-jihi-rehabili-navi.vercel.app";
+const articlePath = "/blog/physical-therapist-personal-gym";
+const newsPath = "/news/staff-role-guide-updated";
+const title = "札幌で理学療法士がいるジム・ピラティスを選ぶには？担当体制の確認ポイント";
+async function main() {
+  const browser = await chromium.launch({channel: "msedge", headless: true});
+  const context = await browser.newContext();
+  await context.route("**/*.google-analytics.com/**", r => r.abort());
+  const page = await context.newPage();
+  const errors = [];
+  page.on("pageerror", e => errors.push(e.message));
+  fs.mkdirSync(".next/qa-staff-role-guide", {recursive: true});
+  try {
+    await page.goto(base + "/blog", {waitUntil: "networkidle"});
+    assert.equal(await page.locator(`main a[href="${articlePath}"]`).count(), 1);
+    await page.locator(`main a[href="${articlePath}"]`).click();
+    await page.waitForURL(base + articlePath);
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({width, height: 900});
+      await page.goto(base + articlePath, {waitUntil: "networkidle"});
+      await page.evaluate(() => document.fonts.ready);
+      assert.equal(await page.locator("h1").innerText(), title);
+      assert((await page.title()).includes(title));
+      assert((await page.locator('meta[name="description"]').getAttribute("content")).includes("直接指導"));
+      assert.equal(await page.locator('link[rel="canonical"]').getAttribute("href"), origin + articlePath);
+      assert.equal(await page.locator('article header time[datetime="2026-10-15"]').count(), 1);
+      assert.equal(await page.locator('article header time[datetime="2026-11-06"]').count(), 1);
+      assert.equal(await page.locator("article > section[id]").count(), 8);
+      assert.equal(await page.locator("#services table tbody tr").count(), 4);
+      assert.equal(await page.locator("#roles table tbody tr").count(), 5);
+      assert.equal(await page.locator("#compare-notes table tbody tr").count(), 4);
+      assert.equal(await page.locator("article dl dt").count(), 4);
+      for (const id of ["difference", "services", "roles", "booking-message", "trial", "compare-notes", "sapporo", "checked-information"]) assert.equal(await page.locator(`article [id="${id}"]`).count(), 1);
+      assert((await page.locator("#services").innerText()).includes("整体をリハビリと同一のサービスとして紹介するものではありません"));
+      for (const source of ["https://www.japanpt.or.jp/about_pt/therapy/", "https://www.japanpt.or.jp/about_pt/therapist/"]) assert.equal(await page.locator(`article a[href="${source}"]`).count(), 1);
+      assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+      assert(await page.locator("main > article img").evaluateAll(images => images.length > 0 && images.every(i => i.complete && i.naturalWidth > 0)));
+      const posting = (await page.locator('script[type="application/ld+json"]').allTextContents()).map(JSON.parse).find(x => x["@type"] === "BlogPosting");
+      assert.equal(posting.headline, title);
+      assert.equal(posting.datePublished, "2026-10-15T09:00:00+09:00");
+      assert.equal(posting.dateModified, "2026-11-06T09:00:00+09:00");
+      assert.equal(posting.mainEntityOfPage, origin + articlePath);
+      await page.screenshot({path: `.next/qa-staff-role-guide/article-${width}.png`});
+      await page.locator("#roles").screenshot({path: `.next/qa-staff-role-guide/roles-${width}.png`});
+    }
+    for (const path of await page.locator('main a[href^="/"]').evaluateAll(a => [...new Set(a.map(x => new URL(x.href).pathname))])) assert.equal((await context.request.get(base + path)).status(), 200, path);
+    await page.getByRole("link", {name: "掲載施設を探す", exact: true}).click();
+    await page.waitForURL(base + "/#search");
+    await page.getByLabel("カテゴリ", {exact: true}).selectOption("gym");
+    await page.waitForFunction(() => document.querySelectorAll("#facilities article").length > 0);
+    await page.goto(base + "/");
+    assert.equal(await page.locator(`#guides a[href="${articlePath}"]`).count(), 1);
+    assert((await page.locator(`#guides a[href="${articlePath}"]`).innerText()).includes(title));
+    await page.goto(base + "/news");
+    assert.equal(await page.locator(`main a[href="${newsPath}"]`).count(), 1);
+    await page.locator(`main a[href="${newsPath}"]`).click();
+    await page.locator(`main article a[href="${articlePath}"]`).click();
+    await page.waitForURL(base + articlePath);
+    const xml = await page.evaluate(s => [...new DOMParser().parseFromString(s, "application/xml").getElementsByTagName("url")].map(n => ({url: n.querySelector("loc")?.textContent, date: n.querySelector("lastmod")?.textContent})), await (await context.request.get(base + "/sitemap.xml")).text());
+    assert.equal(xml.filter(x => x.url === origin + articlePath).length, 1);
+    assert.equal(xml.find(x => x.url === origin + articlePath).date, "2026-11-06T09:00:00+09:00");
+    assert.equal(xml.filter(x => x.url === origin + newsPath).length, 1);
+    assert.deepEqual(errors, []);
+    console.log("PASS: retained article URL/publication; new title, role distinctions, inquiry and comparison tables, sources, dates, metadata/JSON-LD/sitemap, mobile/PC and home/search/news paths.");
+  } finally { await browser.close(); }
+}
+main().catch(e => {console.error(e); process.exitCode = 1;});
