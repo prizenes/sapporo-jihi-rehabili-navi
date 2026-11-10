@@ -3,6 +3,7 @@ import { SAPPORO_PREVENTION_CONSULTATION } from "@/data/sapporo-prevention-consu
 import { SAPPORO_HOME_EXERCISE } from "@/data/sapporo-home-exercise";
 import { SAPPORO_ACCESSIBLE_EXERCISE } from "@/data/sapporo-accessible-exercise";
 import { SAPPORO_MEDICAL_FITNESS_GUIDE } from "@/data/sapporo-medical-fitness-guide";
+import { SAPPORO_HEALTH_CENTER_GUIDE } from "@/data/sapporo-health-center-guide";
 
 export interface ArticleSection {
   id: string;
@@ -29,6 +30,7 @@ export interface GuideArticle {
 }
 
 export const ARTICLES: GuideArticle[] = [
+  SAPPORO_HEALTH_CENTER_GUIDE,
   SAPPORO_MEDICAL_FITNESS_GUIDE,
   SAPPORO_ACCESSIBLE_EXERCISE,
   SAPPORO_HOME_EXERCISE,
